@@ -9,33 +9,24 @@
   */
 int main(void)
 {
-	int firstnum, secondnum, thirdnum;
+	int num1, num2, num3;
 
-	firstnum = 48;
-	while (firstnum < 58)
+	for (num1 = 48; num1 < 57; num1++)
 	{
-		secondnum = 49;
-		while (secondnum < 58)
+		for (num2 = num1 + 1; num2 <= 57; num2++)
 		{
-			thirdnum = 50;
-			while (thirdnum < 58)
+			for (num3 = num2 + 1; num3 <= 57; num3++)
 			{
-				if (thirdnum > secondnum && secondnum > firstnum)
+				putchar(num1);
+				putchar(num2);
+				putchar(num3);
+				if (num1 != 55 || num2 != 56 || num3 != 57)
 				{
-					putchar(firstnum);
-					putchar(secondnum);
-					putchar(thirdnum);
-					if (firstnum != 55 || secondnum != 56)
-					{
-						putchar(',');
-						putchar(' ');
-					}
+					putchar(',');
+					putchar(' ');
 				}
-				thirdnum++;
 			}
-			secondnum++;
 		}
-		firstnum++;
 	}
 	putchar('\n');
 	return (0);
