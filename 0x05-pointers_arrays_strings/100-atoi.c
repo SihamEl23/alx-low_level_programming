@@ -5,27 +5,30 @@
  * @s: An input string
  * Return: integer from conversion
  */
-
 int _atoi(char *s)
 {
-	int i = 0, nb_int = 0, nb_minus = 0, nb_plus = 0;
+	int sign = 1;
+	unsigned int total = 0;
+	char null_flag = 0;
 
-	while (s[i] != '\0')
+	while (*s)
 	{
-		if (s[i] == '+')
-			nb_plus++;
-		if (s[i] == '-')
-			nb_minus++;
-		if (s[i] >= '0' && s[i] <= '9')
+		if (*s == '-')
+			sign *= -1;
+
+		if (*s >= '0' && *s <= '9')
 		{
-			if (nb_plus >= 0 && nb_minus % 2 == 0)
-				nb_int = nb_int * 10 + s[i] - '0';
-			else if (nb_minus % 2 != 0)
-				nb_int = nb_int * 10 + (-1) * (s[i] - '0');
-			if (s[i + 1] == ' ')
-				break;
+			null_flag = 1;
+			total = total * 10 + *s - '0';
 		}
-		i++;
+
+		else if (null_flag)
+			break;
+		s++;
 	}
-	return (nb_int);
+
+	if (sign < 0)
+		total = (-total);
+
+	return (total);
 }
