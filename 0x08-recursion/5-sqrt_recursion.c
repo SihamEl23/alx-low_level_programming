@@ -1,5 +1,5 @@
 #include "main.h"
-int find_sqrt(int n, int start, int end);
+int _sqrt(int prev, int root);
 
 /**
  * _sqrt_recursion - It returns the value of square root of n.
@@ -10,32 +10,21 @@ int _sqrt_recursion(int n)
 {
 	if (n < 0)
 		return (-1);
-	if (n == 0 || n == 1)
-		return (n);
-	return (find_sqrt(n, 1, n / 2));
+
+	return (_sqrt(1, n));
 }
 
 /**
- * find_sqrt - find square root
- * @n: an input integer
- * @start: the begining value to search
- * @end: the end value to search
- * Return: the square root of n, otherwise -1
+ * _sqrt - find square root
+ * @prev: previous value
+ * @root: square root value
+ * Return: the square root
  */
-int find_sqrt(int n, int start, int end)
+int _sqrt(int prev, int root)
 {
-	if (start <= end)
-	{
-		int mid = (start + end) / 2;
-		int square = mid * mid;
-
-		if (square == n)
-			return (mid);
-		else if (square > n)
-			return (find_sqrt(n, start, mid - 1));
-		else
-			return (find_sqrt(n, mid + 1, end));
-	}
-	return (-1);
+	if (prev > root)
+		return (-1);
+	else if (prev * prev == root)
+		return (prev);
+	return (_sqrt(prev + 1, root));
 }
-
