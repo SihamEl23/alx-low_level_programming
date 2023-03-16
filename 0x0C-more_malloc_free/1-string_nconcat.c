@@ -1,4 +1,3 @@
-#include "main.h"
 #include <stdlib.h>
 
 /**
@@ -11,29 +10,34 @@
  * Return: newly allocated space in memory;
  * NULL if the function fails
  */
-
 char *string_nconcat(char *s1, char *s2, unsigned int n)
 {
-	unsigned int len1 = 0, len2 = 0, i, j;
-	char *s12;
+	char *ar;
+	unsigned int i = 0;
+	unsigned int j = 0;
+	unsigned int m;
+	unsigned int p;
+	unsigned int k = 0;
+	unsigned int len;
 
 	if (s1 == NULL)
 		s1 = "";
 	if (s2 == NULL)
 		s2 = "";
-	while (s1[len1] != '\0')
-		len1++;
-	while (s2[len2] != '\0')
-		len2++;
-	if (n >= len2)
-		n = len2;
-	s12 = malloc((len1 + n + 1) * sizeof(char));
-	if (s12 == NULL)
+	while (s1[i])
+		i++;
+	while (s2[j])
+		j++;
+	if (j > n)
+		j = n;
+	len = i + j;
+	ar = malloc(sizeof(char) * (len + 1));
+	if (ar == NULL)
 		return (NULL);
-	for (i = 0; s1[i] != '\0'; i++)
-		s12[i] = s1[i];
-	for (i = len1, j = 0; j < n; i++, j++)
-		s12[i] = s1[j];
-	s12[i] = '\0';
-	return (s12);
+	for (p = 0; p < i; p++)
+		ar[k++] = s1[p];
+	for (m = 0; m < j; m++)
+		ar[k++] = s2[m];
+	ar[k] = '\0';
+	return (ar);
 }
