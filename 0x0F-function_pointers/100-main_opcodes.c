@@ -2,34 +2,38 @@
 #include <stdlib.h>
 
 /**
- * main - prints opcode of own main function
- * @argc: argument count
- * @argv: array of arguments
- * Return: 1 or 2 on fail, 0 on success
+ * main - check the code for ALX students.
+ * @argc: argument count.
+ * @argv: argument vector.
+ *
+ * Return: Always 0.
  */
 int main(int argc, char *argv[])
 {
-	int bytes, i;
-	unsigned char *func_ptr;
+	char *opc = (char *) main;
+	int i, nbytes;
 
 	if (argc != 2)
 	{
 		printf("Error\n");
 		exit(1);
 	}
-	bytes = atoi(argv[1]);
-	if (bytes < 0)
+
+	nbytes = atoi(argv[1]);
+
+	if (nbytes < 0)
 	{
 		printf("Error\n");
 		exit(2);
 	}
-	func_ptr = (unsigned char *)main;
-	i = 0;
-	if (bytes > 0)
+
+	for (i = 0; i < nbytes; i++)
 	{
-		while (i < (bytes - 1))
-			printf("%02hhx ", func_ptr[i++]);
-		printf("%hhx\n", func_ptr[i]);
+		printf("%02x", opc[i] & 0xFF);
+		if (i != nbytes - 1)
+			printf(" ");
 	}
+
+	printf("\n");
 	return (0);
 }
