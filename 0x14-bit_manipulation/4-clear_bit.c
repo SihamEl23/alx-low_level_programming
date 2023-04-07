@@ -23,7 +23,7 @@ int clear_bit(unsigned long int *n, unsigned int index)
 	}
 	else
 	{
-		shift_left = 1UL << index;
+		shift_left = 1 << index;
 		invert = ~shift_left;
 		*n = *n & invert;
 		return (1);
