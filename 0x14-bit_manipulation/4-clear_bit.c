@@ -16,16 +16,8 @@ int clear_bit(unsigned long int *n, unsigned int index)
 	if (index >= sizeof(unsigned long int) * 8)
 		return (-1);
 
-	if (index == 0)
-	{
-		*n = *n & 0;
-		return (1);
-	}
-	else
-	{
-		shift_left = 1 << index;
-		invert = ~shift_left;
-		*n = *n & invert;
-		return (1);
-	}
+	shift_left = 1 << index;
+	invert = ~shift_left;
+	*n = *n & invert;
+	return (1);
 }
