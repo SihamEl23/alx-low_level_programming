@@ -12,7 +12,7 @@
 unsigned int binary_to_uint(const char *b)
 {
 	unsigned int n = 0, base2 = 1;
-	int len, i = 0;
+	int len;
 
 	if (!b)
 		return (0);
@@ -23,7 +23,6 @@ unsigned int binary_to_uint(const char *b)
 			return (0);
 		n += (b[len] - '0') * base2;
 		base2 *= 2;
-		i++;
 		len--;
 	}
 	return (n);
