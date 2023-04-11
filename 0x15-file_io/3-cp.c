@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "main.h"
 #define BUF_SIZE 1024
-
 /**
  * close_fd - close a file descriptor and exit if an error occurs
  * @fd: file descriptor to close
@@ -15,7 +14,6 @@ void close_fd(int fd)
 		exit(100);
 	}
 }
-
 /**
  * main - program that copies the content of a file to another file
  * @argc: num argument
@@ -38,8 +36,7 @@ int main(int argc, char *argv[])
 		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
 		return (98);
 	}
-	fd_to = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR
-	| S_IRGRP | S_IWGRP | S_IROTH, 0664);
+	fd_to = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0664);
 	if (fd_to == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
