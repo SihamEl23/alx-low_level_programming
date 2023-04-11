@@ -1,4 +1,5 @@
 #include "main.h"
+#include <stdio.h>
 
 #define BUFFER_SIZE 1024
 
@@ -37,12 +38,11 @@ void print_error(const char *message, const char *filename, int code)
 void copy_file(int src_fd, int dst_fd)
 {
 	char buffer[BUFFER_SIZE];
-	ssize_t num_bytes_read;
+	ssize_t num_bytes_read, num_bytes_written;
 
 	while ((num_bytes_read = read(src_fd, buffer, BUFFER_SIZE)) > 0)
 	{
-		ssize_t num_bytes_written = write(dst_fd, buffer, num_bytes_read);
-
+		num_bytes_written = write(dst_fd, buffer, num_bytes_read);
 		if (num_bytes_written == -1)
 			print_error("Can't write to", "file", 99);
 	}
@@ -57,13 +57,15 @@ void copy_file(int src_fd, int dst_fd)
  */
 int main(int argc, char *argv[])
 {
+	int src_fd, dst_fd;
+
 	if (argc != 3)
 		print_usage();
-	int src_fd = open(argv[1], O_RDONLY);
+	src_fd = open(argv[1], O_RDONLY);
 
 	if (src_fd == -1)
 		print_error("Can't read from", argv[1], 98);
-	int dst_fd = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0664);
+	dst_fd = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0664);
 
 	if (dst_fd == -1)
 		print_error("Can't write to", argv[2], 99);
