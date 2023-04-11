@@ -3,6 +3,20 @@
 #define BUF_SIZE 1024
 
 /**
+ * close_fd - close a file descriptor and exit if an error occurs
+ * @fd: file descriptor to close
+ * Return: none
+ */
+void close_fd(int fd)
+{
+	if (close(fd) == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
+		exit(100);
+	}
+}
+
+/**
  * main - program that copies the content of a file to another file
  * @argc: num argument
  * @argv: string argument
@@ -29,7 +43,7 @@ int main(int argc, char *argv[])
 	if (fd_to == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
-		close(fd_from);
+		close_fd(fd_from);
 		return (99);
 	}
 	while ((read_cnt = read(fd_from, buf, BUF_SIZE)) > 0)
@@ -38,27 +52,19 @@ int main(int argc, char *argv[])
 		if (write_cnt == -1 || write_cnt != read_cnt)
 		{
 			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
-			close(fd_from);
-			close(fd_to);
+			close_fd(fd_from);
+			close_fd(fd_to);
 			return (99);
 		}
 	}
 	if (read_cnt == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
-		close(fd_from);
-		close(fd_to);
+		close_fd(fd_from);
+		close_fd(fd_to);
 		return (98);
 	}
-	if (close(fd_from) == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_from);
-		return (100);
-	}
-	if (close(fd_to) == -1)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_to);
-		return (100);
-	}
+	close_fd(fd_from);
+	close_fd(fd_to);
 	return (0);
 }
